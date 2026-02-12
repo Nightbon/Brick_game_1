@@ -49,7 +49,6 @@
 - Компилятор GCC
 
 ### Зависимости
-```bash
 # Ubuntu / Debian
 sudo apt install libncurses-dev libcheck-dev lcov
 
@@ -135,3 +134,26 @@ README
 Проект выполнен в рамках образовательной программы.
 
 ⭐ Приятной игры! ⭐
+
+text
+
+## 🎨 Дополнительно: Создание диаграммы КА
+
+Если нужно добавить диаграмму конечного автомата в `misc/images/`:
+
+**`misc/images/fsm.dot`** (Graphviz):
+```dot
+digraph TetrisFSM {
+    rankdir=LR;
+    node [shape=circle, style=filled, fillcolor=lightblue];
+    
+    Start_init -> Spawn [label="Start"];
+    Spawn -> Move_fig [label="spawn()"];
+    Move_fig -> Calc_score [label="check_y()"];
+    Calc_score -> Spawn [label="fig.y >= 0"];
+    Calc_score -> Game_over [label="fig.y < 0"];
+    Game_over -> Start_init [label="Start"];
+}
+bash
+# Генерация PNG
+dot -Tpng misc/images/fsm.dot -o misc/images/tetris-fsm.png
